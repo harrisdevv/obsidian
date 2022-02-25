@@ -30,8 +30,99 @@ Location: {{VALUE:Location's Detail}}
 **Content**
 <%tp.file.cursor(1)%>
 
-**Highlights**
+**Highlights
 ```dataviewjs
+let textJson = '{'+
+			'"type": "text",'+
+			'"version": 98,'+
+			'"versionNonce": 1890989478,'+
+			'"isDeleted": false,'+
+			'"id": "s1SJDNQh",'+
+			'"fillStyle": "hachure",'+
+			'"strokeWidth": 1,'+
+			'"strokeStyle": "solid",'+
+			'"roughness": 1,'+
+			'"opacity": 100,'+
+			'"angle": 0,'+
+			'"x": -19.333333333333286,'+
+			'"y": -110.33333333333329,'+
+			'"strokeColor": "#000000",'+
+			'"backgroundColor": "transparent",'+
+			'"width": 195,'+
+			'"height": 25,'+
+			'"seed": 50458031,'+
+			'"groupIds": [],'+
+			'"strokeSharpness": "sharp",'+
+			'"boundElementIds": [],'+
+			'"fontSize": 20,' + 
+			'"fontFamily": 1,'+
+			'"text": "",'+
+			'"rawText": "",'+
+			'"baseline": 18,'+
+			'"textAlign": "left",'+
+			'"verticalAlign": "top"'+
+		'}';
+let fullExcalidrawJson = '{'+
+	'"type": "excalidraw",'+
+	'"version": 2,'+
+	'"source": "https://excalidraw.com",'+
+	'"elements": [],'+
+	'"appState": {'+
+		'"theme": "light",'+
+		'"viewBackgroundColor": "#ffffff",'+
+		'"currentItemStrokeColor": "#000000",'+
+		'"currentItemBackgroundColor": "transparent",'+
+		'"currentItemFillStyle": "hachure",'+
+		'"currentItemStrokeWidth": 1,'+
+		'"currentItemStrokeStyle": "solid",'+
+		'"currentItemRoughness": 1,'+
+		'"currentItemOpacity": 100,'+
+		'"currentItemFontFamily": 1,'+
+		'"currentItemFontSize": 20,'+
+		'"currentItemTextAlign": "left",'+
+		'"currentItemStrokeSharpness": "sharp",'+
+		'"currentItemStartArrowhead": null,'+
+		'"currentItemEndArrowhead": "arrow",'+
+		'"currentItemLinearStrokeSharpness": "round",'+
+		'"gridSize": null'+
+	'},'+
+	'"files": {}'+
+'}';
+
+const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+function generateString(length) {
+    let result = '';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+function pushTextToExcalidraw(arrSlashSep) {
+	dv.el("h3", "Excalidraw Text");
+	console.log(arrSlashSep.toString());
+	let fullExcalidrawObj = JSON.parse(fullExcalidrawJson);
+	let textJsonObj = JSON.parse(textJson);
+	for (let i = 0; i < arrSlashSep.length; i++) {
+		console.log("val: " + arrSlashSep[i].second);
+		let newTextJsonObj = Object.assign({}, textJsonObj);
+		let blockId = generateString(6);
+		newTextJsonObj["x"] += (i % 6 >= 3 ? 1: 0) * 600;
+		newTextJsonObj["y"] += (i % 3) * 200 + Math.floor(i / 6) * 800;
+		newTextJsonObj["id"] = blockId;
+		newTextJsonObj["text"] = arrSlashSep[i].second;
+		dv.el("p", arrSlashSep[i].second + "\\^" + blockId);
+		fullExcalidrawObj["elements"].push(newTextJsonObj);
+	}
+	
+	dv.el("h3", "Json")
+	dv.paragraph("```json\n")
+	dv.paragraph(JSON.stringify(fullExcalidrawObj["elements"]))
+	dv.paragraph("```")
+}
+
 let counter = 1
 let level = 3
 let arrSlashSep = []
@@ -91,6 +182,8 @@ async function extractHighlight1Level(path, level) {
 		}
 	}
 }
+
 await extractHighlight1Level(dv.current().file.path, level)
 dv.table(["text", "image"], arrSlashSep.map(i=>[i.first, i.second]))
+pushTextToExcalidraw(arrSlashSep)
 ```
