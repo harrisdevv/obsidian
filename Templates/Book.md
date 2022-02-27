@@ -44,9 +44,9 @@ let textJson = '{'+
 			'"roughness": 1,'+
 			'"opacity": 100,'+
 			'"angle": 0,'+
-			'"x": -19.333333333333286,'+
-			'"y": -110.33333333333329,'+
-			'"strokeColor": "#000000",'+
+			'"x": -550.333333333333286,'+
+			'"y": -1100.33333333333329,'+
+			'"strokeColor": "#ff0000",'+
 			'"backgroundColor": "transparent",'+
 			'"width": 195,'+
 			'"height": 25,'+
@@ -54,7 +54,7 @@ let textJson = '{'+
 			'"groupIds": [],'+
 			'"strokeSharpness": "sharp",'+
 			'"boundElementIds": [],'+
-			'"fontSize": 20,' + 
+			'"fontSize": 30,' + 
 			'"fontFamily": 1,'+
 			'"text": "",'+
 			'"rawText": "",'+
@@ -106,14 +106,17 @@ function pushTextToExcalidraw(arrSlashSep) {
 	let fullExcalidrawObj = JSON.parse(fullExcalidrawJson);
 	let textJsonObj = JSON.parse(textJson);
 	for (let i = 0; i < arrSlashSep.length; i++) {
+		if (arrSlashSep[i].second.trim() == "") {
+			continue;
+		}
 		console.log("val: " + arrSlashSep[i].second);
 		let newTextJsonObj = Object.assign({}, textJsonObj);
 		let blockId = generateString(6);
-		newTextJsonObj["x"] += (i % 6 >= 3 ? 1: 0) * 600;
+		newTextJsonObj["x"] += (i % 6 >= 3 ? 1: 0) * 800;
 		newTextJsonObj["y"] += (i % 3) * 200 + Math.floor(i / 6) * 800;
 		newTextJsonObj["id"] = blockId;
 		newTextJsonObj["text"] = arrSlashSep[i].second;
-		dv.el("p", arrSlashSep[i].second + "\\^" + blockId);
+		dv.paragraph(arrSlashSep[i].second + "\\^" + blockId);
 		fullExcalidrawObj["elements"].push(newTextJsonObj);
 	}
 	
@@ -167,6 +170,13 @@ async function extractHighlight1Level(path, level) {
 					if (contentAfterSlash.includes("^")) {
 						contentAfterSlash = contentAfterSlash.slice(0, contentAfterSlash.indexOf("^"))
 					}
+				}
+				else {
+					let pathWithoutMd = path.replace(".md", "")
+					let link = pathWithoutMd.trim().slice( pathWithoutMd.lastIndexOf("/") + 1, pathWithoutMd.length)
+					contentBeforeSlash += "\n[[" + pathWithoutMd  + "|" + link + "]]"
+					//contentBeforeSlash += "<details> <summary></summary> <p>" + "[[" + pathWithoutMd  + "|" + link + "]]</p> </details>" 
+				
 				}
 				let splitContent = contentAfterSlash.split(" ")
 				for (let varii in splitContent) {
