@@ -20,11 +20,11 @@ Location: {{VALUE:Location's Detail}}
 
 ----
 **Memory**
-[[{{VALUE: Book Title}}-Mind Palace]]
+[[Attachment/{{VALUE:Book Title}} - MemoryPalace.excalidraw.md]]
 
-[[{{VALUE: Book Title}}-Reference]]
+[[{{VALUE:Book Title}} - Reference]]
 
-[[{{VALUE: Book Title}}-Plan and Goal]]
+[[{{VALUE:Book Title}} - Plan and Goal]]
 
 ---
 **Content**
