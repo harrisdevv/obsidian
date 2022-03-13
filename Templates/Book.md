@@ -12,7 +12,7 @@ specific subject:
 ---
 TARGET DECK: {{VALUE:Book Title}}
 Source Link: {{VALUE:Calibre, Web, Paper}}
-Location: {{VALUE:Location's Detail}}
+Location: {{VALUE:Location's Detail & nLoc}}
 ![[Attachment/bookmind.jpg]]
 ----
 **<%tp.file.title%>**
@@ -21,13 +21,11 @@ Location: {{VALUE:Location's Detail}}
 ----
 **Memory**
 [[Attachment/{{VALUE:Book Title}} - MemoryPalace.excalidraw.md]]
-
 [[{{VALUE:Book Title}} - Reference]]
-
 [[{{VALUE:Book Title}} - Plan and Goal]]
 
 ---
-**Content**
+# Content
 <%tp.file.cursor(1)%>
 
 **Highlights
@@ -113,7 +111,7 @@ function pushTextToExcalidraw(arrSlashSep) {
 		let newTextJsonObj = Object.assign({}, textJsonObj);
 		let blockId = generateString(6);
 		newTextJsonObj["x"] += (i % 6 >= 3 ? 1: 0) * 800;
-		newTextJsonObj["y"] += (i % 3) * 200 + Math.floor(i / 6) * 800;
+		newTextJsonObj["y"] += (800 - (i % 3) * 200) + Math.floor(i / 6) * 800;
 		newTextJsonObj["id"] = blockId;
 		newTextJsonObj["text"] = arrSlashSep[i].second;
 		dv.paragraph(arrSlashSep[i].second + "\\^" + blockId);

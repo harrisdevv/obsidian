@@ -1,7 +1,9 @@
 tag: #Project
 # <%tp.file.title%>
-## Why
+## Why I want
 - <%tp.file.cursor(1)%>
+## Attract goals
+
 ## Contacts
 - Name: 
 - 📧

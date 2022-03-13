@@ -6,9 +6,9 @@ date updated: 2022-01-23 14:07
 
 ## Tag
 
-#Write/s
+#Write/start
 #Write/progress
-#Write/pub
+#Write/publish
 
 ## Anki
 

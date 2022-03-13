@@ -19,10 +19,6 @@ status: 🟥️
 
 ---
 
-<center><iframe border=0 frameborder=0 height=300 width=550 src="https://twitframe.com/show?url="></iframe></center>
+<center><iframe border=0 frameborder=0 height=500 width=550 src="https://twitframe.com/show?url={{VALUE:Tweet's URL}}"></iframe></center>
 
 ---
-
-- 
-
-1

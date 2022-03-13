@@ -1,5 +1,5 @@
 ---
-tags: Write/s
+tags: Write/start
 publish: true
 aliases: 
   - 
