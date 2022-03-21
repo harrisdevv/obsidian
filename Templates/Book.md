@@ -1,5 +1,5 @@
 ---
-tags: Learn/s
+tags: Learn/start
 publish: true
 aliases: 
   - 
@@ -111,7 +111,7 @@ function pushTextToExcalidraw(arrSlashSep) {
 		let newTextJsonObj = Object.assign({}, textJsonObj);
 		let blockId = generateString(6);
 		newTextJsonObj["x"] += (i % 6 >= 3 ? 1: 0) * 800;
-		newTextJsonObj["y"] += (800 - (i % 3) * 200) + Math.floor(i / 6) * 800;
+		newTextJsonObj["y"] += (400 - (i % 3) * 200) + Math.floor(i / 6) * 800;
 		newTextJsonObj["id"] = blockId;
 		newTextJsonObj["text"] = arrSlashSep[i].second;
 		dv.paragraph(arrSlashSep[i].second + "\\^" + blockId);
@@ -132,8 +132,6 @@ async function extractHighlight1Level(path, level) {
 		return
 	}
 	let content = await dv.io.load(path);
-	let linkregexp = /[\w\d\S]*\[\[(.*)\]\]/g
-	let highlightregexp = /[\w\d\S]*\=\=(.*)\=\=/g
 	let linkAndHighlightRegexp = /(\=\=([^=\n]+)\=\=[ ]*(\^?(\w+)?)|\[\[([^\]\n]+)\]\])/mg
 	let matchLinks = content.match(linkAndHighlightRegexp)
 	for (let vari in matchLinks) {
@@ -182,7 +180,6 @@ async function extractHighlight1Level(path, level) {
 					contentAfterSlashAndBreakLine += "\n"
 					}
 					contentAfterSlashAndBreakLine += splitContent[varii] + " "
-					// No don't use this breakline, I think I can do it manually for my own adjustment, but no i Use It 😄 
 				}
 				let tempItem = {first: contentBeforeSlash, second: contentAfterSlashAndBreakLine}
 				arrSlashSep.push(tempItem)
