@@ -1,34 +1,26 @@
 ---
-tags: Learn/start
+tags: 0Learn/start
 publish: true
 aliases: 
   - 
 cssclass: 
-type: book
+type: {{VALUE:Calibre, Web, Paper}}
 status: 🟥️
-author:
-general subject:
-specific subject:
+relate to MOC:
 ---
 TARGET DECK: {{VALUE:Book Title}}
-Source Link: {{VALUE:Calibre, Web, Paper}}
 Location: {{VALUE:Location's Detail & nLoc}}
 ![[Attachment/bookmind.jpg]]
 ----
 **<%tp.file.title%>**
 �📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚
 
-----
-**Memory**
-[[Attachment/{{VALUE:Book Title}} - MemoryPalace.excalidraw.md]]
+**Memory** @flashcard
+![[Attachment/{{VALUE:Book Title}} - MemoryPalace.excalidraw.md]]
+
 [[{{VALUE:Book Title}} - Reference]]
 [[{{VALUE:Book Title}} - Plan and Goal]]
-
----
-# Content
-<%tp.file.cursor(1)%>
-
-**Highlights
+**Highlights**
 ```dataviewjs
 let textJson = '{'+
 			'"type": "text",'+
@@ -99,7 +91,7 @@ function generateString(length) {
 }
 
 function pushTextToExcalidraw(arrSlashSep) {
-	dv.el("h3", "Excalidraw Text");
+	dv.el("p", "**Excalidraw Text**");
 	console.log(arrSlashSep.toString());
 	let fullExcalidrawObj = JSON.parse(fullExcalidrawJson);
 	let textJsonObj = JSON.parse(textJson);
@@ -118,10 +110,10 @@ function pushTextToExcalidraw(arrSlashSep) {
 		fullExcalidrawObj["elements"].push(newTextJsonObj);
 	}
 	
-	dv.el("h3", "Json")
-	dv.paragraph("```json\n")
-	dv.paragraph(JSON.stringify(fullExcalidrawObj["elements"]))
-	dv.paragraph("```")
+	dv.el("p", "**Json**")
+	dv.paragraph("```json\n" + JSON.stringify(fullExcalidrawObj["elements"]) + "\n```\n")
+	//dv.paragraph(JSON.stringify(fullExcalidrawObj["elements"]))
+	//dv.paragraph("```")
 }
 
 let counter = 1
@@ -192,3 +184,8 @@ await extractHighlight1Level(dv.current().file.path, level)
 dv.table(["text", "image"], arrSlashSep.map(i=>[i.first, i.second]))
 pushTextToExcalidraw(arrSlashSep)
 ```
+
+**Table OF Content** @flashcard
+<%tp.file.cursor(1)%>
+
+

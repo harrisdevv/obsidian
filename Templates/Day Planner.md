@@ -63,7 +63,7 @@ limit 3
 - [ ] 07:30 .
 - [ ] 08:00 .
 - [ ] 08:30 .
-- [ ] 09:00 Relax 30 minutes
+- [ ] 09:00 .
 - [ ] 09:30 .
 - [ ] 10:00 .
 - [ ] 10:30 .
@@ -74,7 +74,7 @@ limit 3
 - [ ] 13:30 .
 - [ ] 14:00 .
 - [ ] 14:30 .
-- [ ] 15:00 Relax 30 minutes
+- [ ] 15:00 .
 - [ ] 15:30 .
 - [ ] 16:00 .
 - [ ] 16:30 .
@@ -130,10 +130,10 @@ limit 3
 
 # Today's Quick Capture
 ## Learn
-![[Quick Capture/Learn_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
+![[🧠 Second Brain/Quick Capture/Learn_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
 ## Thought, Ideas
-![[Quick Capture/Thought_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
+![[🧠 Second Brain/Quick Capture/Thought_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
 ## Task
-![[Quick Capture/Task_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
+![[🧠 Second Brain/Quick Capture/Task_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
 ## Clipboard Note
-![[Quick Capture/Note_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
+![[🧠 Second Brain/Quick Capture/Note_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
