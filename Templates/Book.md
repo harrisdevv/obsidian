@@ -180,8 +180,29 @@ async function extractHighlight1Level(path, level) {
 	}
 }
 
-await extractHighlight1Level(dv.current().file.path, level)
-dv.table(["text", "image"], arrSlashSep.map(i=>[i.first, i.second]))
+function isBlank(str) {
+    return (!str || /^\s*$/.test(str));
+}
+
+function printHighlightStory(arrSlashSep) {
+	dv.paragraph("**Highlight's Story**");
+	let highlightStory = ""
+	for (let i = 0; i < arrSlashSep.length; i++) {
+		let highlight = arrSlashSep[i].second
+		if (!isBlank(highlight)) {
+			highlightStory += " (" + highlight + ")";
+		}
+	}
+	dv.paragraph(highlightStory);
+}
+
+async function printHighlightTable(arrSlashSep) {
+	await extractHighlight1Level(dv.current().file.path, level)
+	dv.table(["text", "image"], arrSlashSep.map(i=>[i.first, i.second]))
+}
+
+await printHighlightTable(arrSlashSep)
+printHighlightStory(arrSlashSep)
 pushTextToExcalidraw(arrSlashSep)
 ```
 
