@@ -196,20 +196,20 @@ function printHighlightStory(arrSlashSep) {
 	dv.paragraph(highlightStory);
 }
 
-async function printHighlightTable(arrSlashSep) {
+async function printHighlightTable() {
+	await extractHighlight1Level(dv.current().file.path, level)
 	dv.paragraph("**Number of Highlight**: " + arrSlashSep.length)
 	let numImage = 0
 	for (let i = 0; i < arrSlashSep.length; i++) {
-		if (!isBlank(highlight)) {
+		if (!isBlank(arrSlashSep[i].second)) {
 			numImage += 1;
 		}
 	}
 	dv.paragraph("**Number of Image**: " + numImage)
-	await extractHighlight1Level(dv.current().file.path, level)
 	dv.table(["text", "image"], arrSlashSep.map(i=>[i.first, i.second]))
 }
 
-await printHighlightTable(arrSlashSep)
+await printHighlightTable()
 printHighlightStory(arrSlashSep)
 pushTextToExcalidraw(arrSlashSep)
 ```
