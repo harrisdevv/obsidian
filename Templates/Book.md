@@ -6,8 +6,8 @@ aliases:
 cssclass: 
 type: {{VALUE:Calibre, Web, Paper}}
 status: 🟥️
-relate to MOC:
 ---
+relate to MOC:
 TARGET DECK: {{VALUE:Book Title}}
 Location: {{VALUE:Location's Detail & nLoc}}
 ![[Attachment/bookmind.jpg]]
@@ -15,7 +15,7 @@ Location: {{VALUE:Location's Detail & nLoc}}
 **<%tp.file.title%>**
 �📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚
 
-**Memory** @flashcard
+{{VALUE:Book Title}} - MP @front **{{VALUE:Book Title}} - Memory Palace** @flashcard
 ![[Attachment/{{VALUE:Book Title}} - MemoryPalace.excalidraw.md]]
 
 [[{{VALUE:Book Title}} - Reference]]
@@ -78,9 +78,7 @@ let fullExcalidrawJson = '{'+
 	'},'+
 	'"files": {}'+
 '}';
-
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
 function generateString(length) {
     let result = '';
     const charactersLength = characters.length;
@@ -89,7 +87,6 @@ function generateString(length) {
     }
     return result;
 }
-
 function pushTextToExcalidraw(arrSlashSep) {
 	dv.el("p", "**Excalidraw Text**");
 	console.log(arrSlashSep.toString());
@@ -109,16 +106,13 @@ function pushTextToExcalidraw(arrSlashSep) {
 		dv.paragraph(arrSlashSep[i].second + "\\^" + blockId);
 		fullExcalidrawObj["elements"].push(newTextJsonObj);
 	}
-	
 	dv.el("p", "**Json**")
 	dv.paragraph("```json\n" + JSON.stringify(fullExcalidrawObj["elements"]) + "\n```\n")
-	//dv.paragraph(JSON.stringify(fullExcalidrawObj["elements"]))
-	//dv.paragraph("```")
 }
-
 let counter = 1
 let level = 3
 let arrSlashSep = []
+let arrSlashSepOrg = []
 async function extractHighlight1Level(path, level) {
 	if (level == 0) {
 		return
@@ -164,7 +158,6 @@ async function extractHighlight1Level(path, level) {
 					let link = pathWithoutMd.trim().slice( pathWithoutMd.lastIndexOf("/") + 1, pathWithoutMd.length)
 					contentBeforeSlash += "\n[[" + pathWithoutMd  + "|" + link + "]]"
 					//contentBeforeSlash += "<details> <summary></summary> <p>" + "[[" + pathWithoutMd  + "|" + link + "]]</p> </details>" 
-				
 				}
 				let splitContent = contentAfterSlash.split(" ")
 				for (let varii in splitContent) {
@@ -175,11 +168,11 @@ async function extractHighlight1Level(path, level) {
 				}
 				let tempItem = {first: contentBeforeSlash, second: contentAfterSlashAndBreakLine}
 				arrSlashSep.push(tempItem)
+				arrSlashSepOrg.push(contentAfterSlash)
 			}
 		}
 	}
 }
-
 function isBlank(str) {
     return (!str || /^\s*$/.test(str));
 }
@@ -188,7 +181,7 @@ function printHighlightStory(arrSlashSep) {
 	dv.paragraph("**Highlight's Story**");
 	let highlightStory = ""
 	for (let i = 0; i < arrSlashSep.length; i++) {
-		let highlight = arrSlashSep[i].second
+		let highlight = arrSlashSep[i]
 		if (!isBlank(highlight)) {
 			highlightStory += " (" + highlight + ")";
 		}
@@ -196,7 +189,7 @@ function printHighlightStory(arrSlashSep) {
 	dv.paragraph(highlightStory);
 }
 
-async function printHighlightTable() {
+async function printHighlightTable(arrSlashSep) {
 	await extractHighlight1Level(dv.current().file.path, level)
 	dv.paragraph("**Number of Highlight**: " + arrSlashSep.length)
 	let numImage = 0
@@ -209,12 +202,11 @@ async function printHighlightTable() {
 	dv.table(["text", "image"], arrSlashSep.map(i=>[i.first, i.second]))
 }
 
-await printHighlightTable()
-printHighlightStory(arrSlashSep)
+await printHighlightTable(arrSlashSep)
+printHighlightStory(arrSlashSepOrg)
 pushTextToExcalidraw(arrSlashSep)
 ```
-
-**Table OF Content** @flashcard
+{{VALUE:Book Title}} - ToC @front **{{VALUE:Book Title}} - Table OF Content** @flashcard
 <%tp.file.cursor(1)%>
 
 
