@@ -132,6 +132,7 @@ async function extractHighlight1Level(path, level) {
 			}
 		}
 		else if (matchLinks[vari].startsWith("==", 0)) {
+			counter++
 			if (matchLinks[vari].includes("Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document.")) {
 				continue
 				}
