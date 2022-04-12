@@ -132,7 +132,6 @@ async function extractHighlight1Level(path, level) {
 			}
 		}
 		else if (matchLinks[vari].startsWith("==", 0)) {
-			counter++
 			if (matchLinks[vari].includes("Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document.")) {
 				continue
 				}
@@ -143,13 +142,16 @@ async function extractHighlight1Level(path, level) {
 				let contentAfterSlash = (indexOfSlash != -1) ? counter++ + "|" + matchLinks[vari].slice(indexOfSlash + 1): ""
 				contentBeforeSlash = contentBeforeSlash.replace(/\=\=/g, "")
 				contentAfterSlash = contentAfterSlash.replace(/\=\=/g, "").replace("**", "")
+				let fullNoteLink = "" 
 				if (matchLinks[vari].includes("\^")) {
 					//dv.el("h4", "herehere" + matchLinks[vari])
 					let blockLinkNumber = matchLinks[vari].slice(matchLinks[vari].indexOf("\^") + 1)
 					if (contentBeforeSlash.includes("^")) {
 						contentBeforeSlash = contentBeforeSlash.slice(0, contentBeforeSlash.indexOf("^"))
 					}
-					contentBeforeSlash += "[[" + path.replace(".md", "").trim() + "\#\^" + blockLinkNumber + "|" + blockLinkNumber + "]]"
+					//fullNoteLink = "[[" + path.replace(".md", "").trim() + "\#\^" + blockLinkNumber + "|" + blockLinkNumber + "]]"
+					fullNoteLink = "[[" + path.replace(".md", "").trim() + "\#\^" + blockLinkNumber + "|" + counter + "]]"
+					contentBeforeSlash += fullNoteLink
 					if (contentAfterSlash.includes("^")) {
 						contentAfterSlash = contentAfterSlash.slice(0, contentAfterSlash.indexOf("^"))
 					}
@@ -157,7 +159,7 @@ async function extractHighlight1Level(path, level) {
 				else {
 					let pathWithoutMd = path.replace(".md", "")
 					let link = pathWithoutMd.trim().slice( pathWithoutMd.lastIndexOf("/") + 1, pathWithoutMd.length)
-					contentBeforeSlash += "\n[[" + pathWithoutMd  + "|" + link + "]]"
+					contentBeforeSlash += "\n" +"[[" + pathWithoutMd  + "|" + link + "]]" 
 					//contentBeforeSlash += "<details> <summary></summary> <p>" + "[[" + pathWithoutMd  + "|" + link + "]]</p> </details>" 
 				}
 				let splitContent = contentAfterSlash.split(" ")
@@ -169,6 +171,9 @@ async function extractHighlight1Level(path, level) {
 				}
 				let tempItem = {first: contentBeforeSlash, second: contentAfterSlashAndBreakLine}
 				arrSlashSep.push(tempItem)
+				if (fullNoteLink !== "") {
+					contentAfterSlash += " " + fullNoteLink
+				}
 				arrSlashSepOrg.push(contentAfterSlash)
 			}
 		}
