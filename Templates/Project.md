@@ -1,4 +1,4 @@
-tag: #Project
+tag: #3Project/Doing
 # <%tp.file.title%>
 ## Why I want
 - <%tp.file.cursor(1)%>
@@ -35,7 +35,10 @@ Leverage | [[@]]
 ```query
 tag:#Journal #"<%tp.file.title%>"
 ```
-
+## What I learn from Project 
+"Add Anki"
+### learn
+### mistake
 ## Task list
 - [ ] #Task Plan 
 - [ ] #Task Review 🔁 every week on Sunday

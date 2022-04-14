@@ -16,6 +16,7 @@ Location: {{VALUE:Location's Detail & nLoc}}
 �📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚📚
 
 {{VALUE:Book Title}} - MP @front **{{VALUE:Book Title}} - Memory Palace** @flashcard
+MP URL link>
 ![[Attachment/{{VALUE:Book Title}} - MemoryPalace.excalidraw.md]]
 
 [[{{VALUE:Book Title}} - Reference]]
@@ -78,6 +79,8 @@ let fullExcalidrawJson = '{'+
 	'},'+
 	'"files": {}'+
 '}';
+
+let SEP = "---"
 const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 function generateString(length) {
     let result = '';
@@ -128,6 +131,7 @@ async function extractHighlight1Level(path, level) {
 			let file = dv.page(filePathWithExt)
 			// dv.el("h4", filePath + " :") // Show the link 	title
 			if (file !== undefined) {
+				arrSlashSep.push({first: SEP, second: ""})
 				await extractHighlight1Level(filePathWithExt, level - 1)
 			}
 		}
@@ -149,8 +153,7 @@ async function extractHighlight1Level(path, level) {
 					if (contentBeforeSlash.includes("^")) {
 						contentBeforeSlash = contentBeforeSlash.slice(0, contentBeforeSlash.indexOf("^"))
 					}
-					//fullNoteLink = "[[" + path.replace(".md", "").trim() + "\#\^" + blockLinkNumber + "|" + blockLinkNumber + "]]"
-					fullNoteLink = "[[" + path.replace(".md", "").trim() + "\#\^" + blockLinkNumber + "|" + counter + "]]"
+					fullNoteLink = " [[" + path.replace(".md", "").trim() + "\#\^" + blockLinkNumber + "|" + counter + "]]"
 					contentBeforeSlash += fullNoteLink
 					if (contentAfterSlash.includes("^")) {
 						contentAfterSlash = contentAfterSlash.slice(0, contentAfterSlash.indexOf("^"))
@@ -159,7 +162,7 @@ async function extractHighlight1Level(path, level) {
 				else {
 					let pathWithoutMd = path.replace(".md", "")
 					let link = pathWithoutMd.trim().slice( pathWithoutMd.lastIndexOf("/") + 1, pathWithoutMd.length)
-					contentBeforeSlash += "\n" +"[[" + pathWithoutMd  + "|" + link + "]]" 
+					contentBeforeSlash += "\n" +" [[" + pathWithoutMd  + "|" + link + "]]" 
 					//contentBeforeSlash += "<details> <summary></summary> <p>" + "[[" + pathWithoutMd  + "|" + link + "]]</p> </details>" 
 				}
 				let splitContent = contentAfterSlash.split(" ")
@@ -197,14 +200,24 @@ function printHighlightStory(arrSlashSep) {
 
 async function printHighlightTable(arrSlashSep) {
 	await extractHighlight1Level(dv.current().file.path, level)
-	dv.paragraph("**Number of Highlight**: " + arrSlashSep.length)
 	let numImage = 0
+	let numHighlight = 0
 	for (let i = 0; i < arrSlashSep.length; i++) {
+		if (!arrSlashSep[i].first.includes(SEP)) {
+			numHighlight += 1;
+		}
 		if (!isBlank(arrSlashSep[i].second)) {
 			numImage += 1;
 		}
 	}
+	dv.paragraph("**Number of Highlight**: " + numHighlight)
 	dv.paragraph("**Number of Image**: " + numImage)
+	for (let i = 0; i < arrSlashSep.length - 1; i++) {
+		if (arrSlashSep[i].first.includes(SEP) && arrSlashSep[i + 1].first.includes(SEP)) {
+			arrSlashSep.splice(i + 1, 1)
+			i--;
+		}
+	}
 	dv.table(["text", "image"], arrSlashSep.map(i=>[i.first, i.second]))
 }
 
