@@ -4,7 +4,7 @@ publish: true
 aliases: 
   - 
 cssclass: 
-type: {{VALUE:Calibre, Web, Paper}}
+type: {{VALUE:Calibre, Web, Paper, Collection}}
 status: 🟥️
 ---
 relate to MOC:
@@ -227,5 +227,4 @@ pushTextToExcalidraw(arrSlashSep)
 ```
 {{VALUE:Book Title}} - ToC @front **{{VALUE:Book Title}} - Table OF Content** @flashcard
 <%tp.file.cursor(1)%>
-
 
