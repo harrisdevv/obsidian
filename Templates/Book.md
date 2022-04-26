@@ -20,7 +20,14 @@ MP URL link>
 ![[Attachment/{{VALUE:Book Title}} - MemoryPalace.excalidraw.md]]
 
 [[{{VALUE:Book Title}} - Reference]]
+[[{{VALUE:Book Title}} - Voice]]
 [[{{VALUE:Book Title}} - Plan and Goal]]
+
+**Auditory**
+```query
+path:"voice/{{VALUE:Book Title}}"
+```
+
 **Highlights**
 ```dataviewjs
 let textJson = '{'+
@@ -116,6 +123,7 @@ let counter = 1
 let level = 3
 let arrSlashSep = []
 let arrSlashSepOrg = []
+let arrSlashSepOrgFirstNSecond = []
 async function extractHighlight1Level(path, level) {
 	if (level == 0) {
 		return
@@ -130,7 +138,7 @@ async function extractHighlight1Level(path, level) {
 			let filePathWithExt = filePath + ".md"
 			let file = dv.page(filePathWithExt)
 			// dv.el("h4", filePath + " :") // Show the link 	title
-			if (file !== undefined) {
+			if (!filePath.includes("- Voice") && file !== undefined) {
 				arrSlashSep.push({first: SEP, second: ""})
 				await extractHighlight1Level(filePathWithExt, level - 1)
 			}
@@ -147,24 +155,29 @@ async function extractHighlight1Level(path, level) {
 				contentBeforeSlash = contentBeforeSlash.replace(/\=\=/g, "")
 				contentAfterSlash = contentAfterSlash.replace(/\=\=/g, "").replace("**", "")
 				let fullNoteLink = "" 
+				let origItem = {first: "", second: ""}
 				if (matchLinks[vari].includes("\^")) {
 					//dv.el("h4", "herehere" + matchLinks[vari])
 					let blockLinkNumber = matchLinks[vari].slice(matchLinks[vari].indexOf("\^") + 1)
 					if (contentBeforeSlash.includes("^")) {
 						contentBeforeSlash = contentBeforeSlash.slice(0, contentBeforeSlash.indexOf("^"))
 					}
+					origItem.first = contentBeforeSlash
 					fullNoteLink = " [[" + path.replace(".md", "").trim() + "\#\^" + blockLinkNumber + "|" + counter + "]]"
 					contentBeforeSlash += fullNoteLink
 					if (contentAfterSlash.includes("^")) {
 						contentAfterSlash = contentAfterSlash.slice(0, contentAfterSlash.indexOf("^"))
 					}
+					origItem.second = contentAfterSlash
 				}
 				else {
 					let pathWithoutMd = path.replace(".md", "")
 					let link = pathWithoutMd.trim().slice( pathWithoutMd.lastIndexOf("/") + 1, pathWithoutMd.length)
+					origItem.first = contentBeforeSlash
 					contentBeforeSlash += "\n" +" [[" + pathWithoutMd  + "|" + link + "]]" 
 					//contentBeforeSlash += "<details> <summary></summary> <p>" + "[[" + pathWithoutMd  + "|" + link + "]]</p> </details>" 
 				}
+				origItem.second = contentAfterSlash
 				let splitContent = contentAfterSlash.split(" ")
 				for (let varii in splitContent) {
 					if (varii % 5 == 0 && varii > 0) {
@@ -177,6 +190,7 @@ async function extractHighlight1Level(path, level) {
 				if (fullNoteLink !== "") {
 					contentAfterSlash += " " + fullNoteLink
 				}
+				arrSlashSepOrgFirstNSecond.push(origItem)
 				arrSlashSepOrg.push(contentAfterSlash)
 			}
 		}
@@ -221,10 +235,21 @@ async function printHighlightTable(arrSlashSep) {
 	dv.table(["text", "image"], arrSlashSep.map(i=>[i.first, i.second]))
 }
 
+function printHighlightTextForVoice(arrSlashSep) {
+	dv.paragraph("**For Voice**");
+	let counter = 1
+	let content = ""
+	for (let i = 0; i < arrSlashSep.length; i++) {
+		content += "\nLine " + counter + ", Text: " + arrSlashSep[i].first + "; Image: " + arrSlashSep[i].second
+		counter++
+	}
+	dv.paragraph("```\n" + content + "\n```")
+}
+
 await printHighlightTable(arrSlashSep)
 printHighlightStory(arrSlashSepOrg)
+printHighlightTextForVoice(arrSlashSepOrgFirstNSecond)
 pushTextToExcalidraw(arrSlashSep)
 ```
 {{VALUE:Book Title}} - ToC @front **{{VALUE:Book Title}} - Table OF Content** @flashcard
 <%tp.file.cursor(1)%>
-
