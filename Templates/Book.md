@@ -99,25 +99,30 @@ function generateString(length) {
 }
 function pushTextToExcalidraw(arrSlashSep) {
 	dv.el("p", "**Excalidraw Text**");
+	let excalidrawText = ""
 	console.log(arrSlashSep.toString());
 	let fullExcalidrawObj = JSON.parse(fullExcalidrawJson);
 	let textJsonObj = JSON.parse(textJson);
+	let cnt = 0
 	for (let i = 0; i < arrSlashSep.length; i++) {
 		if (arrSlashSep[i].second.trim() == "") {
 			continue;
 		}
-		console.log("val: " + arrSlashSep[i].second);
+//		console.log("val: " + arrSlashSep[i].second);
 		let newTextJsonObj = Object.assign({}, textJsonObj);
 		let blockId = generateString(6);
-		newTextJsonObj["x"] += (i % 6 >= 3 ? 1: 0) * 800;
-		newTextJsonObj["y"] += (400 - (i % 3) * 200) + Math.floor(i / 6) * 800;
+		newTextJsonObj["x"] += (cnt % 6 >= 3 ? 1: 0) * 800;
+		newTextJsonObj["y"] += (400 - (cnt % 3) * 200) + Math.floor(cnt / 6) * 800;
+		//console.log(cnt + ", " + newTextJsonObj["x"] + "," + newTextJsonObj["y"])
 		newTextJsonObj["id"] = blockId;
 		newTextJsonObj["text"] = arrSlashSep[i].second;
-		dv.paragraph(arrSlashSep[i].second + "\\^" + blockId);
+		excalidrawText += "\n" + arrSlashSep[i].second + "\^" + blockId
 		fullExcalidrawObj["elements"].push(newTextJsonObj);
+		cnt++
 	}
+	dv.paragraph("```\n"+excalidrawText + "\n```")
 	dv.el("p", "**Json**")
-	dv.paragraph("```json\n" + JSON.stringify(fullExcalidrawObj["elements"]) + "\n```\n")
+	dv.paragraph("```json\n" + "," + JSON.stringify(fullExcalidrawObj["elements"]).slice(1, -1) + "\n```\n")
 }
 let counter = 1
 let level = 3
