@@ -1,14 +1,32 @@
 tags: #Daily
+
 # Annual Goals
 - <% tp.file.cursor(1) %>
--
--
--
--
--
--
--
--
+
+# Monthly Goals
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-01]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-02]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-03]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-04]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-05]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-06]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-07]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-08]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-09]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-10]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-11]]"%>
+
+<% "[[Day Planners/Monthly/" + tp.file.title+ "-12]]"%>
 
 # Weekly Plan
 
@@ -20,6 +38,7 @@ tags: #Daily
 %>
 <% "[[Day Planners/Weekly/R_" + moment("2022-01-03", "YYYY-MM-DD").add(7 * 3, 'd').toDate().toISOString().split('T')[0] + "]]"
 %>
+
 <% "[[Day Planners/Weekly/R_" + moment("2022-01-03", "YYYY-MM-DD").add(7 * 4, 'd').toDate().toISOString().split('T')[0] + "]]"
 %>
 <% "[[Day Planners/Weekly/R_" + moment("2022-01-03", "YYYY-MM-DD").add(7 * 5, 'd').toDate().toISOString().split('T')[0] + "]]"
@@ -28,6 +47,7 @@ tags: #Daily
 %>
 <% "[[Day Planners/Weekly/R_" + moment("2022-01-03", "YYYY-MM-DD").add(7 * 7, 'd').toDate().toISOString().split('T')[0] + "]]"
 %>
+
 <% "[[Day Planners/Weekly/R_" + moment("2022-01-03", "YYYY-MM-DD").add(7 * 8, 'd').toDate().toISOString().split('T')[0] + "]]"
 %>
 <% "[[Day Planners/Weekly/R_" + moment("2022-01-03", "YYYY-MM-DD").add(7 * 9, 'd').toDate().toISOString().split('T')[0] + "]]"

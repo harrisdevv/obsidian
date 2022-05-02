@@ -132,7 +132,7 @@ limit 3
 
 # Today's Quick Capture
 ## Learn
-![[🧠 Second Brain/Quick Capture/Learn_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
+![[🧠 Second Brain/Quick Capture/Anki/Learn_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
 ## Thought, Ideas
 ![[🧠 Second Brain/Quick Capture/Thought_<%tp.date.now("YYYY-MM-DD", 0, tp.file.title.split("-")[1], "YYYYMMDD")%>]]
 ## Task
